@@ -1,0 +1,109 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title card-title-button" id="bordered-layout-colored-controls">Personas</h4>
+    <div class="button-title">
+      <button class="btn btn-primary" (click)="newEdit(undefined)">Nuevo
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <section id="filters" class="filters">
+      <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span>FILTROS</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-4">
+            <label for="items">Cantidad por página</label>
+            <select id="items" name="items" [(ngModel)]="pageSize" class="form-control">
+              <option value="2">2</option>
+              <option value="10">10</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="items">Nombre/Apellido</label>
+            <input type="text" name="nameFilter" class="form-control" [(ngModel)]="filterText"
+                   (keyup)="updateFilter()">
+          </div>
+          <div class="col-4">
+            <label for="tipoDoc">Tipo Documento</label>
+            <select id="tipoDoc" name="tipoDoc" [(ngModel)]="tipoDocSel" class="form-control"
+                    (change)="updateFilter()">
+              <option [ngValue] = 0>TODOS</option>
+              <option [ngValue]=item.tpoId *ngFor="let item of tiposDocumento">{{item.tpoDescripcion}}</option>
+            </select>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </section>
+    <section id="striped-inverse">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-hover table-inverse-modal">
+            <caption>
+              <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="personas.length"></ngb-pagination>
+            </caption>
+            <thead>
+            <tr class="table-header-custom">
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Tipo Documento</th>
+              <th>Nro Documento</th>
+              <th>Fecha Nacimiento</th>
+              <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="personas.length==0">
+              <td colspan="7">NO EXISTEN PERSONAS CARGADAS PARA LOS PARAMETROS INGRESADOS</td>
+            </tr>
+            <tr
+              *ngFor="let persona of personas| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i=index;">
+              <td>{{persona.perId}}</td>
+              <td>{{persona.perNombre}}</td>
+              <td>{{persona.perApellido}}</td>
+              <td>{{persona.perTipoDocumento.tpoDescripcion}}</td>
+              <td>{{persona.perNumeroDocumento}}</td>
+              <td>{{persona.perFechaNacimiento|date:'dd/MM/yyyy'}}</td>
+              <td>
+                <i class="fa fa-pencil default-icon" ngbTooltip="Editar" (click)="newEdit(persona)"></i>
+                <i class="fa fa-times trash-icon" ngbTooltip="Eliminar" (click)="delete(content,persona)"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        Está seguro que desea eliminar a {{personaSel.perNombre}} {{personaSel.perApellido}}?
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="modal.close('Save click')">Confirmar</button>
+  </div>
+</ng-template>

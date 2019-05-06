@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title" id="bordered-layout-colored-controls">{{titulo}}</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="angForm" novalidate (submit)="save()">
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input class="form-control" formControlName="nombre" type="text">
+          </div>
+          <div
+            *ngIf="angForm.controls['nombre'].invalid && (angForm.controls['nombre'].dirty || angForm.controls['nombre'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['nombre'].errors.required">
+              El campo nombre es obligatorio.
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Apellido:</label>
+            <input class="form-control" formControlName="apellido" type="text">
+          </div>
+          <div
+            *ngIf="angForm.controls['apellido'].invalid && (angForm.controls['apellido'].dirty || angForm.controls['apellido'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['apellido'].errors.required">
+              El campo apellido es obligatorio.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="tipoDoc">Tipo Documento</label>
+            <select id="tipoDoc" name="tipoDoc" formControlName="tipoDocumento" class="form-control">
+              <option [value]=item.tpoId *ngFor="let item of tiposDocumento">{{item.tpoDescripcion}}</option>
+            </select>
+          </div>
+          <div
+            *ngIf="angForm.controls['tipoDocumento'].invalid && (angForm.controls['tipoDocumento'].dirty || angForm.controls['tipoDocumento'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['tipoDocumento'].errors.required">
+              Debe seleccionar un tipo de documento.
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Nro Documento:</label>
+            <input class="form-control" formControlName="nroDocumento" type="number">
+          </div>
+          <div
+            *ngIf="angForm.controls['nroDocumento'].invalid && (angForm.controls['nroDocumento'].dirty || angForm.controls['nroDocumento'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['nroDocumento'].errors.required">
+              El numero de documento es obligatorio.
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Fecha Nacimiento:</label>
+            <input class="form-control" formControlName="fechaNacimiento" type="date">
+          </div>
+          <div
+            *ngIf="angForm.controls['fechaNacimiento'].invalid && (angForm.controls['fechaNacimiento'].dirty || angForm.controls['fechaNacimiento'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['fechaNacimiento'].errors.required">
+              La fecha de nacimiento es obligatoria.
+            </div>
+          </div>
+          <button (click)="goPersonas()" class="btn btn-primary" style="margin-right: 10px">
+            Volver
+          </button>
+          <button type="submit"
+                  [disabled]="angForm.pristine || angForm.invalid" class="btn btn-success">
+            Guardar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

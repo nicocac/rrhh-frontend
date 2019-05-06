@@ -1,0 +1,48 @@
+.pagination {
+  padding-left: 40%!important;
+}
+
+.filters {
+  border-style: solid;
+  margin: 5px 5px 40px 5px;
+  padding: 20px;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: lightgrey;
+}
+
+.button-title {
+  display: inline-block !important;
+  float: right !important;
+}
+
+.card-title-button {
+  display: inline-block !important;
+  padding-top: 10px !important;
+}
+
+.table-header-custom {
+  background: #007bff;
+  color: white
+}
+
+.main-container {
+  padding: 40px;
+}
+
+.card-footer-custom {
+  border-top-style: none!important;
+  border-top-left-radius: 0px!important;
+  border-top-right-radius: 0px!important;
+}
+
+.card {
+  border-bottom-left-radius: 0px!important;
+  border-bottom-right-radius: 0px!important;
+}
+
+.footer-proyect {
+  font-size: 20px;
+  font-weight: bold;
+  color: #888
+}
